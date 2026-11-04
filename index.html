@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Dustbowl Royale</title>
+<meta name="description" content="A chubby, cartoony isometric battle royale in a post-apocalyptic wasteland. Play in your browser with keyboard & mouse, gamepad or touch.">
+<meta name="theme-color" content="#2a1a12">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="in-menu">
+<canvas id="game"></canvas>
+
+<div id="quick"><button id="q-music" title="Music on/off">🎵</button><button id="q-sfx" title="Sound effects on/off">🔊</button><button id="q-pause" title="Pause (Esc)">⏸</button></div>
+
+<section id="menu" class="screen">
+  <div class="card hero">
+    <h1>DUSTBOWL<span>ROYALE</span></h1>
+    <p class="tag">25 chubby survivors. One shrinking dust storm. Zero showers.</p>
+    <button id="play" class="big">▶ PLAY</button>
+    <div class="row"><label>Bots <b id="bots-n">15</b></label><input id="bots" type="range" min="5" max="24" step="1" value="15"></div>
+    <div class="row"><label>Difficulty</label><div id="diff" class="seg"><button data-d="easy">Easy</button><button data-d="normal">Normal</button><button data-d="hard">Hard</button></div></div>
+    <div class="row2"><button id="howto-btn">❓ How to Play</button><button id="settings-btn">⚙ Settings</button></div>
+    <p class="fine">15 bots recommended for phones · up to 24 on desktop (25 players total)</p>
+  </div>
+</section>
+
+<section id="howto" class="screen hidden">
+  <div class="card wide">
+    <h2>How to Play</h2>
+    <p class="goal">Jump from the blimp, loot crates & houses, fight bots and infected critters, stay inside the safe zone, and be the <b>last chonk standing</b>.</p>
+    <div class="cols">
+      <div><h3>⌨️ Keyboard + Mouse</h3><table>
+        <tr><td>Move</td><td><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></td></tr>
+        <tr><td>Aim / Shoot</td><td>Mouse / <kbd>Left Click</kbd></td></tr>
+        <tr><td>Aim down sights</td><td><kbd>Right Click</kbd></td></tr>
+        <tr><td>Sprint</td><td><kbd>Shift</kbd></td></tr>
+        <tr><td>Reload</td><td><kbd>R</kbd></td></tr>
+        <tr><td>Interact / loot / drive</td><td><kbd>E</kbd></td></tr>
+        <tr><td>Weapon slots</td><td><kbd>1</kbd><kbd>2</kbd><kbd>3</kbd> / Wheel</td></tr>
+        <tr><td>Throw grenade</td><td><kbd>G</kbd></td></tr>
+        <tr><td>Bandage / Medkit / Soda</td><td><kbd>H</kbd><kbd>J</kbd><kbd>K</kbd></td></tr>
+        <tr><td>Crouch</td><td><kbd>C</kbd> / <kbd>Ctrl</kbd></td></tr>
+        <tr><td>Map</td><td><kbd>M</kbd> / <kbd>Tab</kbd></td></tr>
+        <tr><td>Jump from blimp</td><td><kbd>Space</kbd></td></tr>
+        <tr><td>Vehicle: brake / horn</td><td><kbd>Space</kbd> / <kbd>Q</kbd></td></tr>
+        <tr><td>Pause / Help</td><td><kbd>Esc</kbd> / <kbd>F1</kbd></td></tr>
+      </table></div>
+      <div><h3>🎮 Gamepad</h3><table>
+        <tr><td>Move / Aim</td><td>Left stick / Right stick</td></tr>
+        <tr><td>Shoot / Aim sights</td><td><kbd>RT</kbd> / <kbd>LT</kbd></td></tr>
+        <tr><td>Interact · Jump</td><td><kbd>A</kbd> / <kbd>✕</kbd></td></tr>
+        <tr><td>Reload</td><td><kbd>X</kbd> / <kbd>□</kbd></td></tr>
+        <tr><td>Swap weapon</td><td><kbd>Y</kbd> / <kbd>△</kbd></td></tr>
+        <tr><td>Crouch · Brake</td><td><kbd>B</kbd> / <kbd>○</kbd></td></tr>
+        <tr><td>Grenade</td><td><kbd>RB</kbd></td></tr>
+        <tr><td>Medkit</td><td><kbd>LB</kbd></td></tr>
+        <tr><td>Bandage / Soda</td><td>D-pad ↑ / ↓</td></tr>
+        <tr><td>Slot 1 / 2 / Melee</td><td>D-pad ← / → / <kbd>R3</kbd></td></tr>
+        <tr><td>Sprint</td><td>Push stick fully / <kbd>L3</kbd></td></tr>
+        <tr><td>Map / Pause</td><td><kbd>View</kbd> / <kbd>Start</kbd></td></tr>
+      </table></div>
+      <div><h3>📱 Touch</h3><table>
+        <tr><td>Move</td><td>Drag on left side</td></tr>
+        <tr><td>Aim + shoot</td><td>Drag on right side (push far to fire), tap to shoot once</td></tr>
+        <tr><td>Buttons</td><td>USE · RELOAD · SWAP · NADE · HEAL · CROUCH · MAP</td></tr>
+        <tr><td>Tip</td><td>Play in landscape. Add to Home Screen for fullscreen.</td></tr>
+      </table>
+      <h3>🧟 Wasteland tips</h3><ul>
+        <li><b>Straw Dogs</b> hunt in packs near the farm.</li>
+        <li><b>Carrion Crows</b> dive-bomb from above — watch their shadows.</li>
+        <li><b>Glow Rats</b> swarm out of junk piles.</li>
+        <li>The <b>Bloat Hog</b> guards Radio Hill and drops rare loot.</li>
+        <li>KO'd players drop a stash — loot it with <kbd>E</kbd>.</li>
+        <li>Red barrels go boom. Green goo hurts.</li>
+      </ul></div>
+    </div>
+    <button class="back">← Back</button>
+  </div>
+</section>
+
+<section id="settings" class="screen hidden">
+  <div class="card">
+    <h2>Settings</h2>
+    <div class="row"><label>Music</label><input id="s-music" type="checkbox" class="tog"></div>
+    <div class="row"><label>Music volume</label><input id="s-musicv" type="range" min="0" max="1" step="0.05"></div>
+    <div class="row"><label>Sound effects</label><input id="s-sfx" type="checkbox" class="tog"></div>
+    <div class="row"><label>SFX volume</label><input id="s-sfxv" type="range" min="0" max="1" step="0.05"></div>
+    <div class="row"><label>Master volume</label><input id="s-master" type="range" min="0" max="1" step="0.05"></div>
+    <div class="row"><label>Graphics quality</label><select id="s-quality"><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select></div>
+    <div class="row"><label>Screen shake</label><input id="s-shake" type="checkbox" class="tog"></div>
+    <div class="row"><label>Aim assist (gamepad/touch)</label><input id="s-assist" type="checkbox" class="tog"></div>
+    <div class="row"><label>Show FPS</label><input id="s-fps" type="checkbox" class="tog"></div>
+    <button class="back">← Back</button>
+  </div>
+</section>
+
+<section id="pause" class="screen hidden">
+  <div class="card">
+    <h2>Paused</h2>
+    <button id="p-resume" class="big">▶ Resume</button>
+    <div class="row2"><button id="p-settings">⚙ Settings</button><button id="p-howto">❓ Controls</button></div>
+    <button id="p-quit">⌂ Quit to Menu</button>
+  </div>
+</section>
+
+<section id="results" class="screen hidden">
+  <div class="card">
+    <h2 id="r-title">YOU GOT DUSTED!</h2>
+    <p id="r-sub"></p>
+    <div class="stats"><div><b id="r-place">#1</b><span>Place</span></div><div><b id="r-kills">0</b><span>KOs</span></div><div><b id="r-dmg">0</b><span>Damage</span></div><div><b id="r-time">0:00</b><span>Survived</span></div></div>
+    <button id="r-again" class="big">↻ Play Again</button>
+    <button id="r-menu">⌂ Main Menu</button>
+  </div>
+</section>
+
+<aside id="loot" class="hidden">
+  <header><span id="loot-title">Loot Crate</span><button id="loot-x">✕</button></header>
+  <div id="loot-items"></div>
+  <button id="loot-all">Take All [E]</button>
+</aside>
+
+<div id="touch" class="hidden">
+  <button class="tb sm" data-a="map" style="left:calc(50% + 84px);top:10px">MAP</button>
+  <button class="tb big" id="t-use" data-a="interact" data-a2="jump" style="right:96px;bottom:18px">USE</button>
+  <button class="tb" data-a="swap" style="right:16px;bottom:18px">SWAP</button>
+  <button class="tb" data-a="reload" style="right:16px;bottom:96px">RELOAD</button>
+  <button class="tb" data-a="heal" style="right:96px;bottom:118px">HEAL</button>
+  <button class="tb" data-a="grenade" style="right:176px;bottom:100px">NADE</button>
+  <button class="tb" data-a="crouch" style="right:194px;bottom:18px">CROUCH</button>
+</div>
+
+<div id="rotate"><div>📱↻<br>Rotate your phone to landscape</div></div>
+<noscript>Dustbowl Royale needs JavaScript.</noscript>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

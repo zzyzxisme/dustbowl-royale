@@ -4,7 +4,7 @@ An original, cartoon-style **isometric battle royale** set in a post-apocalyptic
 It runs in the browser on PC (keyboard + mouse or gamepad) and on phones (touch).
 It's in the same genre as PUBG (drop in, loot, last one standing), but every name, character, map and asset is original.
 
-> Status: **DRAFT — waiting for your review.** No game code gets written until you approve or change this plan.
+> Status: **Approved and built (v1.0).** See README.md for what shipped.
 
 ---
 

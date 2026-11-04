@@ -1,5 +1,5 @@
 // Offline cache: network-first for the app shell so updates arrive, cache fallback when offline.
-const CACHE = 'dustbowl-v1';
+const CACHE = 'dustbowl-v2';
 const FILES = ['./', 'index.html', 'css/style.css', 'manifest.webmanifest', 'icons/icon.svg', 'icons/icon-192.png',
   'js/main.js', 'js/state.js', 'js/util.js', 'js/data.js', 'js/world.js', 'js/art.js', 'js/audio.js', 'js/input.js', 'js/entities.js', 'js/ai.js', 'js/game.js', 'js/render.js', 'js/ui.js'];
 self.addEventListener('install', (e) => { e.waitUntil(caches.open(CACHE).then((c) => c.addAll(FILES)).then(() => self.skipWaiting())); });

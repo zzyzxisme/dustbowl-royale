@@ -62,7 +62,7 @@ export function showResults() {
   const p = G.player, win = !p.dead, place = win ? 1 : p.place;
   $('#r-title').textContent = win ? 'LAST CHONK STANDING!' : place <= 5 ? 'SO CLOSE! #' + place : 'YOU GOT DUSTED!';
   $('#r-sub').textContent = win ? 'Dinner is a warm can of beans. You earned it.' : G.killer ? `KO'd by ${G.killer.name}` + (G.killer.dead ? '' : ' — spectating them now') : 'The wasteland claimed another chubby hero.';
-  $('#r-place').textContent = '#' + place + ' / ' + G.total; $('#r-kills').textContent = p.kills; $('#r-dmg').textContent = Math.round(p.dmg); $('#r-time').textContent = fmtTime(G.time);
+  $('#r-place').textContent = '#' + place; $('#r-place').nextElementSibling.textContent = 'of ' + G.total; $('#r-kills').textContent = p.kills; $('#r-dmg').textContent = Math.round(p.dmg); $('#r-time').textContent = fmtTime(G.time);
   $('#results').classList.toggle('win', win);
   show('results');
 }
